@@ -2,7 +2,7 @@ package org.udemy.junit;
 
 import org.junit.*;
 
-public class MainTest {
+public class FixturesTest {
 
     @BeforeClass //This method will be executed BEFORE ALL test method... Need to be STATIC
     public static void setUpBeforeClass(){ //This method usually are used to CONNECT with databases
