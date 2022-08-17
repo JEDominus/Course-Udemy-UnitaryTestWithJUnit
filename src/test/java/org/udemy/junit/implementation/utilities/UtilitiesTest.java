@@ -29,7 +29,7 @@ public class UtilitiesTest {
         String result = utilities.concatStrings("Bye Cruel ", "World!");
 
         //Then (Validations)
-        Assert.assertEquals("String are not equals", "Hello World!", result); //First parameter can be used as error message
+        Assert.assertEquals("String are not equals", "Bye Cruel World!", result); //First parameter can be used as error message
     }
 
     @Test
@@ -42,6 +42,6 @@ public class UtilitiesTest {
         String result = utilities.concatStrings(null, "World!");
 
         //Then (Validations)
-        Assert.assertEquals("String are not equals", "Hello World!", result); //First parameter can be used as error message
+        Assert.assertNull( null, result); //First parameter can be used as error message
     }
 }

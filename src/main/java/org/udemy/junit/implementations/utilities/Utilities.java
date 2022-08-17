@@ -4,7 +4,11 @@ public class Utilities {
 
     public String concatStrings(String a, String b)
     {
-        return a.concat(b);
+        if(a != null && b!= null){
+            return a.concat(b);
+        }
+
+        return null;
     }
 
 }
