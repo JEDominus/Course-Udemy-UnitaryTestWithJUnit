@@ -21,4 +21,9 @@ public class Utilities {
         return array;
     }
 
+    public Boolean isGraterThan10(int x){
+        //If is grater than 10 - return true, otherwise, return false
+        return x > 10;
+    }
+
 }

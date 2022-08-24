@@ -48,4 +48,15 @@ public class UtilitiesTest {
         assertNotEquals(expected[2], result[0]);
         assertNotEquals(expected[2], result[1]);
     }
+
+    @Test
+    public void isGraterThan10Test(){
+        //When
+        Boolean resultTrue = utilities.isGraterThan10(20);
+        Boolean resultFalse = utilities.isGraterThan10(5);
+
+        //Then
+        assertTrue("Assert was fail for true", resultTrue);
+        assertFalse("Assert was fail for false", resultFalse);
+    }
 }
