@@ -1,34 +1,50 @@
 package org.udemy.junit.implementation.databases;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.udemy.junit.implementations.databases.DbConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class DbConnectionTest {
+    private static final String BD = "genericdb";
+    private static final String USER = "admin";
+    private static final String PASS = "1234";
+    private static final String INVALID_USER = "noAdmin";
 
     private DbConnection connection;
 
-    @Before
-    public void setUp(){
-        //connection = new DbConnection();
+    @Test
+    public void connectionSuccessfullyTest(){
+        connection = new DbConnection(BD, USER, PASS);
+        Connection con = null;
+
+        try{
+            con = connection.getConnection();
+        }catch(SQLException e){
+            fail("Database connection has failed");
+        }
+
+        assertThat(con, Matchers.notNullValue());
     }
 
-    @Test @Ignore
-    public void dbConnectionFail() throws SQLException { //Test the correct db connection
-        Connection con = connection.getConnection();
+    @Test
+    public void connectionFailedTest(){
+        connection = new DbConnection(BD, INVALID_USER, PASS);
+        Connection con = null;
 
-        if(con == null){ //If connection doesn't exist, trigger the test fail
-            Assert.fail("DB Connection failed");
-        }else{ //But if connection is not null, then assert with JUnit and Hamcrest
-            assertThat(con, Matchers.notNullValue());
+        try{
+            con = connection.getConnection();
+        }catch(SQLException e){
+            assertThat(e, Matchers.isA(SQLException.class));
+            assertThat(e.getMessage(), Matchers.startsWith("Access denied"));
+            assertThat(e.getMessage(), Matchers.containsString("Access denied"));
+            assertThat(e.getSQLState(), Matchers.is("28000"));
         }
+
+        assertThat(con, Matchers.nullValue());
     }
 }
