@@ -2,7 +2,9 @@ package org.udemy.junit.implementation.databases;
 
 import org.hamcrest.Matchers;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.udemy.junit.implementations.databases.DbConnection;
 
 import java.sql.Connection;
@@ -15,6 +17,9 @@ public class DbConnectionTest {
     private static final String USER = "admin";
     private static final String PASS = "1234";
     private static final String INVALID_USER = "noAdmin";
+
+    @Rule //Is necesary annotate with rule  the expected exception
+    public ExpectedException exception = ExpectedException.none();
 
     private DbConnection connection;
 
@@ -51,6 +56,19 @@ public class DbConnectionTest {
 
     @Test(expected = SQLException.class) @Ignore
     public void connectionFailed2Test() throws SQLException{
+        connection = new DbConnection(BD, INVALID_USER, PASS);
+        connection.getConnection();
+    }
+
+    @Test @Ignore
+    public void connectionFailed3Test() throws SQLException{
+        //This rule catchs the expetions
+        exception.expect(SQLException.class); //This line is necessary in each method
+        exception.expectMessage("Access denied");//Using substring, NOT ENTIRE STRING REQUIRED
+        exception.expectMessage(Matchers.equalTo("Access denied for user 'noAdmin'@'localhost' (using password: YES)"));//Using Matchers
+        exception.expectMessage(Matchers.containsString("Access denied"));//Using Matchers
+        exception.expectMessage(Matchers.endsWith("(using password: YES)"));//Using Matchers
+
         connection = new DbConnection(BD, INVALID_USER, PASS);
         connection.getConnection();
     }
