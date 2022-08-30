@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.udemy.junit.implementations.databases.DbConnection;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static org.junit.Assert.assertThat;
 
@@ -17,11 +18,11 @@ public class DbConnectionTest {
 
     @Before
     public void setUp(){
-        connection = new DbConnection();
+        //connection = new DbConnection();
     }
 
     @Test @Ignore
-    public void dbConnectionFail(){ //Test the correct db connection
+    public void dbConnectionFail() throws SQLException { //Test the correct db connection
         Connection con = connection.getConnection();
 
         if(con == null){ //If connection doesn't exist, trigger the test fail
