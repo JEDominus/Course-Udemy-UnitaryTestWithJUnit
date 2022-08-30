@@ -1,6 +1,7 @@
 package org.udemy.junit.implementation.databases;
 
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.udemy.junit.implementations.databases.DbConnection;
 
@@ -46,5 +47,11 @@ public class DbConnectionTest {
         }
 
         assertThat(con, Matchers.nullValue());
+    }
+
+    @Test(expected = SQLException.class) @Ignore
+    public void connectionFailed2Test() throws SQLException{
+        connection = new DbConnection(BD, INVALID_USER, PASS);
+        connection.getConnection();
     }
 }
